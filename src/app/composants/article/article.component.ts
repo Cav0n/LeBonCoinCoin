@@ -14,6 +14,7 @@ export class ArticleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+    this.article.nom = 'test';
+}
 
 }
