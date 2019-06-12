@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: 'app-favoris',
+  templateUrl: 'favoris.page.html',
+  styleUrls: ['favoris.page.scss']
 })
-export class Tab2Page {
+export class FavorisPage {
   currentImage: any;
 
   constructor(private camera: Camera) { }
