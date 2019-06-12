@@ -9,12 +9,11 @@ import { Article } from 'src/model/Article';
 export class ArticleComponent implements OnInit {
 
   @Input()
-  article: Article = new Article();
+  article: Article;
 
   constructor() { }
 
   ngOnInit() {
-    this.article.nom = "test";
   }
 
 }
