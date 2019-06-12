@@ -1,6 +1,6 @@
 import { firestore } from 'firebase';
 
-export interface Article {
+export class Article {
     id?: string;
     nom: string;
     description: string;
