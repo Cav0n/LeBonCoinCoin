@@ -16,8 +16,16 @@ export class AccueilPage {
     new Article("5","Article5","Description5","PouikPouik","Voiture","12/12/2012","Chamboeuf", "12,78"),
   ]
 
-  constructor() {
-    
-  }
+  constructor() {  }
+
+  deleteArticle(article) {
+
+    const index = this.articles.indexOf(article);
+
+      if (index > -1) {
+            this.articles.splice(index, 1);
+      }
+   }
+
 
 }

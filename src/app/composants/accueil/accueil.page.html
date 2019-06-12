@@ -7,8 +7,18 @@
 </ion-header>
 <ion-content>
     <ion-list lines="none">
-        <ion-item *ngFor="let article of articles">
-            <app-article [article]='article'></app-article>
-        </ion-item>
+        <ion-item-sliding *ngFor="let article of articles" style="max-width: 700px; margin: 0 auto;">
+
+            <ion-item>
+                <app-article [article]='article'></app-article>
+            </ion-item>
+
+            <ion-item-options>
+                    <button ion-button icon-only (click)="deleteArticle(article)" style="background: white;" danger>
+                        <ion-icon name="heart" style="zoom:3.0; color: rgb(255, 0, 221);"></ion-icon>
+                    </button>
+            </ion-item-options>
+
+        </ion-item-sliding>
     </ion-list>
 </ion-content>
