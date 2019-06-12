@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content>
     <ion-list lines="none">
-        <ion-item-sliding *ngFor="let article of articles" style="max-width: 700px; margin: 0 auto;">
+        <ion-item-sliding *ngFor="let article of articles">
 
             <ion-item>
                 <app-article [article]='article'></app-article>
