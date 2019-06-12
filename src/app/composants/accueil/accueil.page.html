@@ -7,10 +7,8 @@
         </ion-toolbar>
     </ion-header>
     <ion-list>
-        <ion-item>
-            <app-article>
-                
-            </app-article>
+        <ion-item *ngFor="let article of articles">
+            <app-article [article]='article'></app-article>
         </ion-item>
     </ion-list>
 </ion-content>
