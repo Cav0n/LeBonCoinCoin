@@ -1,45 +1,28 @@
-import { Injectable } from "@angular/core";
-import * as firebase from 'firebase/app';
-import { FirebaseService } from './firebase.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
 
-  constructor(
-		private firebaseService: FirebaseService,
-		public afAuth: AngularFireAuth
-	){}
+  constructor(private fireAuth: AngularFireAuth) { }
 
-  doRegister(value){
-   return new Promise<any>((resolve, reject) => {
-     firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
-     .then(
-       res => resolve(res),
-       err => reject(err))
-   })
+  signUp(email: string, password: string): Promise<firebase.auth.UserCredential> {
+    return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  doLogin(value){
-   return new Promise<any>((resolve, reject) => {
-     firebase.auth().signInWithEmailAndPassword(value.email, value.password)
-     .then(
-       res => resolve(res),
-       err => reject(err))
-   })
+  logIn(email: string, password: string) {
+    return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-	doLogout(){
-    return new Promise((resolve, reject) => {
-      this.afAuth.auth.signOut()
-      .then(() => {
-        this.firebaseService.unsubscribeOnLogOut();
-        resolve();
-      }).catch((error) => {
-        reject();
-      });
-    })
+  logOut(): Promise<void> {
+    if (this.isAuthenticated) {
+      return this.fireAuth.auth.signOut();
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return this.fireAuth.auth.currentUser != null;
   }
 }
