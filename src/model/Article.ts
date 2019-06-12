@@ -1,14 +1,7 @@
 import { firestore } from 'firebase';
 
 export class Article {
-    description: string;
-    vendeur: string;
-    categorie: string;
-    dateDeMiseEnVille: string;
-    ville: string;
-    prix: number;
-
-    constructor(public id: string, public nom: string){
+    constructor(public id: string, public nom: string, public description: string, public vendeur: string, public categorie: string, public dateDeMiseEnLigne: string, public ville: string, public prix: string){
 
     }
 }
