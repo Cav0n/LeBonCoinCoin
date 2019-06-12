@@ -1,3 +1,4 @@
+import { ArticleComponent } from '../article/article.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,7 @@ import { AccueilPage } from './accueil.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: AccueilPage }])
   ],
-  declarations: [AccueilPage]
+  declarations: [AccueilPage, ArticleComponent],
+  entryComponents: [ArticleComponent]
 })
 export class AccueilPageModule {}
