@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-compte',
@@ -7,6 +9,8 @@ import { Component } from '@angular/core';
 })
 export class ComptePage {
 
-  constructor() {}
+  constructor(private authService: AuthenticationService) { 
+    console.log(authService.isAuthenticated);
+   }
 
 }

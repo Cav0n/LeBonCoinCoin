@@ -22,13 +22,13 @@ export class LoginPage implements OnInit {
     this.authService.logIn(this.email, this.password)
       .then(() => {
         this.router.navigateByUrl('tabs');
-        this.toastService.presentToast('Welcome back !');
+        this.toastService.presentToast('Bienvenue de nouveau !');
       })
-      .catch(() => this.toastService.presentToast('Login and password do not match'));
+      .catch(() => this.toastService.presentToast('Le login et le mot de passe ne correspondent pas.'));
   }
 
   redirectToRegisterPage() {
-    console.log('redirecting to the registration page');
+    console.log('Redirection vers la page d\'inscription');
     this.router.navigateByUrl('register');
   }
 

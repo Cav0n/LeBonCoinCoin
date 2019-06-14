@@ -44,7 +44,7 @@ export class RegisterPage implements OnInit {
 
         if (newUser) {
           this.router.navigateByUrl('tabs');
-          await this.toastService.presentToast('Welcome');
+          await this.toastService.presentToast('Bienvenue ' + this.username);
         }
       })
       .catch(async (err) => await this.toastService.presentToast(`${err.code} - ${err.message}`)); // Error handling missing
