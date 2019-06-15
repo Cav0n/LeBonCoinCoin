@@ -1,5 +1,5 @@
 # LeBonCoinCoin
 
-IONIC project
+An Ionic app that permit users to sell objects like [leboncoin.fr](https://www.leboncoin.fr).
 
-Un nouvelle application LeBonCoinCoin pour remplacer la vielle merde de la dernière màj !!!
+*This is a project for the computer science school (just for training).*
