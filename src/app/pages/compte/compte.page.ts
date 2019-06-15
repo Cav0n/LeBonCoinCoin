@@ -1,8 +1,8 @@
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from 'src/app/services/user.service';
 import { Component } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { auth, firestore } from 'firebase';
 import * as firebase from 'firebase';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-compte',
@@ -10,10 +10,15 @@ import * as firebase from 'firebase';
   styleUrls: ['compte.page.scss']
 })
 export class ComptePage {
-  userName = '';
 
-  constructor(private userService: UserService) {
-    console.log(firebase.auth().currentUser.email);
+  user: AngularFirestoreDocument;
+  sub;
+  userName: string;
+  userID: string;
+
+  constructor(private userService: UserService, private afs: AngularFirestore) {
+    console.log(firebase.auth().currentUser.uid);
+
   }
 
 }

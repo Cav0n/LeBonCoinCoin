@@ -12,8 +12,8 @@ export class AuthenticationService {
     return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  logIn(email: string, password: string) {
-    return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
+  async logIn(email: string, password: string) {
+    return (await this.fireAuth.auth.signInWithEmailAndPassword(email, password)).user;
   }
 
   logOut(): Promise<void> {

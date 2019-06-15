@@ -14,7 +14,6 @@ export const environment = {
     storageBucket: 'leboncoincoin-57a9b.appspot.com',
     messagingSenderId: '1015689578225'
   },
-  user: User
 };
 
 /*
