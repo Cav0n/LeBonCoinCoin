@@ -1,4 +1,4 @@
-import { ArticleComponent } from '../article/article.component';
+import { ArticleComponent } from '../../components/article/article.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';

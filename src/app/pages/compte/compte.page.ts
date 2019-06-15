@@ -1,6 +1,8 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { auth } from 'firebase';
+import { auth, firestore } from 'firebase';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-compte',
@@ -8,9 +10,10 @@ import { auth } from 'firebase';
   styleUrls: ['compte.page.scss']
 })
 export class ComptePage {
+  userName = '';
 
-  constructor(private authService: AuthenticationService) { 
-    console.log(authService.isAuthenticated);
-   }
+  constructor(private userService: UserService) {
+    console.log(firebase.auth().currentUser.email);
+  }
 
 }

@@ -7,12 +7,12 @@ import { User } from 'src/model/User';
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyAkvBjWYZTGfi1q_iJBBGScNz7vrOHCYWM",
-    authDomain: "leboncoincoin-57a9b.firebaseapp.com",
-    databaseURL: "https://leboncoincoin-57a9b.firebaseio.com",
-    projectId: "leboncoincoin-57a9b",
-    storageBucket: "leboncoincoin-57a9b.appspot.com",
-    messagingSenderId: "1015689578225"
+    apiKey: 'AIzaSyAkvBjWYZTGfi1q_iJBBGScNz7vrOHCYWM',
+    authDomain: 'leboncoincoin-57a9b.firebaseapp.com',
+    databaseURL: 'https://leboncoincoin-57a9b.firebaseio.com',
+    projectId: 'leboncoincoin-57a9b',
+    storageBucket: 'leboncoincoin-57a9b.appspot.com',
+    messagingSenderId: '1015689578225'
   },
   user: User
 };
