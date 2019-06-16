@@ -13,8 +13,6 @@ import { Router } from '@angular/router';
 })
 export class ComptePage {
 
-  user: AngularFirestoreDocument;
-  sub;
   userName: string;
   userID: string;
 
@@ -23,7 +21,7 @@ export class ComptePage {
     private afs: AngularFirestore,
     private authService: AuthenticationService,
     private router: Router) {
-    console.log(firebase.auth().currentUser.uid);
+      console.log(firebase.auth().currentUser.uid);
 
   }
 

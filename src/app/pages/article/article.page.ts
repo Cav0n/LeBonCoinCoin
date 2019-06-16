@@ -11,10 +11,10 @@ export class ArticlePage implements OnInit {
   articleName = 'Nom de l\'article';
   id = null;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private activatedRoute: ActivatedRoute) { }
 
  ngOnInit() {
-   this.id = this.activatedRoute.snapshot.paramMap.get('id');
  }
 
 }
