@@ -21,8 +21,11 @@ export class ComptePage {
     private afs: AngularFirestore,
     private authService: AuthenticationService,
     private router: Router) {
-      console.log(firebase.auth().currentUser.uid);
 
+  }
+
+  ngOnInit(): void {
+    
   }
 
   logout() {
