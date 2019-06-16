@@ -25,7 +25,7 @@ export class AccueilPage {
     if (index > -1) { this.articles.splice(index, 1); }
    }
 
-  navigateToOtherPage(articleId: string): void {
+  navigateToArticleDetail(articleId: string): void {
     this.navController.navigateForward('/article/' + articleId);
   }
 
