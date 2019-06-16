@@ -8,4 +8,8 @@
 <ion-content>
     <p>{{ userID }}</p>
     <p>{{ userName }}</p>
+    <ion-button color="danger" (click)="logout()">
+        <ion-icon slot="start" name="exit"></ion-icon>
+        Se déconnecter
+    </ion-button>
 </ion-content>

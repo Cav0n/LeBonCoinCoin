@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -20,17 +21,18 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private authService: AuthenticationService,
     private userService: UserService,
-    private toastService: ToastService) { }
+    private toastService: ToastService,
+    public alert: AlertController) { }
 
   ngOnInit() {
   }
 
   signUp() {
     if (this.password !== this.confirmPassword) {
+      this.showAlert('Erreur', 'Les mots de passe ne correpondent pas.');
       return;
     }
 
-    // Vérifier aussi qu'il y'a un pseudo et qu'il est disponible
     this.authService.signUp(this.email, this.password)
       .then(async value => {
         this.userService.addUser({
@@ -38,16 +40,21 @@ export class RegisterPage implements OnInit {
           username: this.username,
         });
 
-        // Faire en sorte qu'ici et à la connexion, cet utilisateur soit stocké dans une variable globale
-        // En tant qu'utilisateur courant.
-        const newUser = this.userService.getUser(value.user.uid);
+        this.router.navigateByUrl('tabs');
+        await this.toastService.presentToast('Bienvenue ' + this.username);
 
-        if (newUser) {
-          this.router.navigateByUrl('tabs');
-          await this.toastService.presentToast('Bienvenue ' + this.username);
-        }
       })
-      .catch(async (err) => await this.toastService.presentToast(`${err.code} - ${err.message}`)); // Error handling missing
+      .catch(async (err) => await this.toastService.presentToast(`${err.message}`));
+  }
+
+  async showAlert(header: string, message: string) {
+    const alert = await this.alert.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

@@ -3,6 +3,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 import { User } from 'src/model/User';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-compte',
@@ -16,9 +18,18 @@ export class ComptePage {
   userName: string;
   userID: string;
 
-  constructor(private userService: UserService, private afs: AngularFirestore) {
+  constructor(
+    private userService: UserService,
+    private afs: AngularFirestore,
+    private authService: AuthenticationService,
+    private router: Router) {
     console.log(firebase.auth().currentUser.uid);
 
+  }
+
+  logout() {
+    this.authService.logOut();
+    this.router.navigateByUrl('/login');
   }
 
 }
