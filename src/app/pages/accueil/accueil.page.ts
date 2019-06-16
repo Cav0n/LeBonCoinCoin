@@ -18,7 +18,6 @@ export class AccueilPage {
     private afs: AngularFirestore
     ) {
      this.articles = afs.collection('articles').valueChanges();
-
    }
 
   deleteArticle(article: Article) {
