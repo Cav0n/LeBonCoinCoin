@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-article',
@@ -8,13 +9,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ArticlePage implements OnInit {
 
-  articleName = 'Nom de l\'article';
-  id = null;
+  public article;
+  articleid;
 
   constructor(
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private afs: AngularFirestore) {
+    }
 
  ngOnInit() {
+  let articleid = this.activatedRoute.snapshot.paramMap.get('id');
+  console.log(articleid + this.article);
  }
 
 }

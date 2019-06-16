@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content>
     <ion-list lines="none">
-        <ion-item-sliding *ngFor="let article of articles | async" (click)="navigateToOtherPage(article.id)">
+        <ion-item-sliding *ngFor="let article of articles | async" routerLink="/article/{{article.id}}">
 
             <ion-item>
                 <app-article [article]='article'></app-article>

@@ -18,15 +18,10 @@ export class AccueilPage {
     private afs: AngularFirestore
     ) {
      this.articles = afs.collection('articles').valueChanges();
-
    }
 
   deleteArticle(article: Article) {
     const index = this.articles.indexOf(article);
     if (index > -1) { this.articles.splice(index, 1); }
    }
-
-  navigateToOtherPage(articleId: string): void {
-    this.navController.navigateForward('/article/' + articleId);
-  }
 }
