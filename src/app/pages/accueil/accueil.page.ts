@@ -29,4 +29,8 @@ export class AccueilPage {
   navigateToOtherPage(articleId: string): void {
     this.navController.navigateForward('/article/' + articleId);
   }
+
+  navigateToNewArticle(): void {
+    this.navController.navigateForward('/new-article');
+  }
 }
