@@ -9,7 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ArticlePage implements OnInit {
 
-  public article;
+  article;
   articleid;
 
   constructor(
