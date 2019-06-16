@@ -16,3 +16,7 @@ app-article {
   max-width: 700px;
   right: 26%;
 }
+
+ion-header {
+  padding-top: env(safe-area-inset-top);
+}
