@@ -1,3 +1,4 @@
+import { Article } from 'src/model/Article';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewArticlePage implements OnInit {
 
-  constructor() { }
+  article: Article;
+
+  constructor() {
+    this.article = new Article();
+  }
 
   ngOnInit() {
   }
