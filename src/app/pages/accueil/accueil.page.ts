@@ -24,4 +24,12 @@ export class AccueilPage {
     const index = this.articles.indexOf(article);
     if (index > -1) { this.articles.splice(index, 1); }
    }
+
+  navigateToOtherPage(articleId: string): void {
+    this.navController.navigateForward('/article/' + articleId);
+  }
+
+  navigateToNewArticle(): void {
+    this.navController.navigateForward('/new-article');
+  }
 }
