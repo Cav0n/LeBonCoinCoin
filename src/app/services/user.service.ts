@@ -21,7 +21,10 @@ export class UserService {
           const data = a.payload.doc.data();
           return {
             id,
-            username: data.username
+            username: data.username,
+            mail: data.mail,
+            ville: data.ville,
+            age: data.age
           };
         });
       })

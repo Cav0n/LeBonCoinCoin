@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
-  username: string;
-  email: string;
+  user: User;
   password: string;
   confirmPassword: string;
 
@@ -33,15 +33,12 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    this.authService.signUp(this.email, this.password)
+    this.authService.signUp(this.user.mail, this.password)
       .then(async value => {
-        this.userService.addUser({
-          id: value.user.uid,
-          username: this.username,
-        });
+        this.userService.addUser(this.user);
 
         this.router.navigateByUrl('tabs');
-        await this.toastService.presentToast('Bienvenue ' + this.username);
+        await this.toastService.presentToast('Bienvenue ' + this.user.username);
 
       })
       .catch(async (err) => await this.toastService.presentToast(`${err.message}`));
