@@ -15,7 +15,7 @@ import { take, map } from 'rxjs/operators';
 export class ComptePage {
 
   user;
-  userID = "";
+  userID = '';
 
   constructor(
     private userService: UserService,

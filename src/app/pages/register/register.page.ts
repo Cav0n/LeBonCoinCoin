@@ -33,6 +33,16 @@ export class RegisterPage implements OnInit {
       return;
     }
 
+    if (this.username == null) {
+        this.showAlert('Attention', 'Le pseudo ne peut pas être vide.');
+    }
+    if (this.email == null) {
+      this.showAlert('Attention', 'L\'email ne peut pas être vide.');
+    }
+    if (this.password == null) {
+      this.showAlert('Attention', 'Le mot de passe ne peut pas être vide.');
+    }
+
     this.authService.signUp(this.email, this.password)
       .then(async value => {
         this.userService.addUser({
