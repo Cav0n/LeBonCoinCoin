@@ -13,7 +13,10 @@ import { User } from 'src/model/User';
 })
 export class RegisterPage implements OnInit {
 
-  user: User;
+  username: string;
+  mail: string;
+  ville: string;
+  age: number;
   password: string;
   confirmPassword: string;
 
@@ -33,12 +36,28 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    this.authService.signUp(this.user.mail, this.password)
+    if (this.username == null) {
+        this.showAlert('Attention', 'Le pseudo ne peut pas être vide.');
+    }
+    if (this.mail == null) {
+      this.showAlert('Attention', 'L\'email ne peut pas être vide.');
+    }
+    if (this.password == null) {
+      this.showAlert('Attention', 'Le mot de passe ne peut pas être vide.');
+    }
+
+    this.authService.signUp(this.mail, this.password)
       .then(async value => {
-        this.userService.addUser(this.user);
+        this.userService.addUser({
+          id: value.user.uid,
+          username: this.username,
+          ville: this.ville,
+          age: this.age,
+          mail: this.mail
+        });
 
         this.router.navigateByUrl('tabs');
-        await this.toastService.presentToast('Bienvenue ' + this.user.username);
+        await this.toastService.presentToast('Bienvenue ' + this.username);
 
       })
       .catch(async (err) => await this.toastService.presentToast(`${err.message}`));
