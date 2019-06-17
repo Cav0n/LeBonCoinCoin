@@ -8,9 +8,9 @@ export class Article {
         public description?: string,
         public vendeur?: string,
         public categorie?: string,
-        public dateDeMiseEnLigne?: string,
+        public dateDeMiseEnLigne?: Date,
         public ville?: string,
-        public prix?: string) {
+        public prix?: number) {
 
     }
 }
