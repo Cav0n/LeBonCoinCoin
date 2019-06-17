@@ -8,16 +8,13 @@
             </ion-col>
         
             <ion-col>
-                <ion-row>
-                    <ion-col>
-                        <ion-grid>
-                            <ion-row>
-                                <ion-col size="6">
-                                    {{ article.nom }}
-                                </ion-col>
-                                <ion-col size="6" align-items-end> 
-                                    {{ article.prix }} €   
-                                </ion-col>
+                <ion-row class="padding-right-0">
+                    <ion-col class="padding-left-0 padding-right-0">
+                        <ion-grid class="padding-left-0 padding-right-0">
+                            <ion-row class="padding-rigth-0">
+                                <div style="width: 100%;">
+                                    <span class="titre_article">{{ article.nom }}</span> <span class="float-right prix_article">{{ article.prix }} €</span>
+                                </div>
                             </ion-row>
                         </ion-grid>
                     </ion-col>
@@ -28,15 +25,14 @@
                     </ion-card-subtitle>
                 </ion-row>
                 <ion-row>
-                    <ion-col>
-                        <div class="ion-text-start">
-                            <p>{{ article.vendeur }} ({{ article.ville }})</p>
-                        </div>
-                    </ion-col>
-                    <ion-col>
-                        <div class="ion-text-end">
-                            <p>{{ article.dateDeMiseEnLigne }}</p>
-                        </div>
+                    <ion-col class="padding-left-0 padding-right-0">
+                        <ion-grid class="padding-left-0 padding-right-0">
+                            <ion-row class="padding-rigth-0">
+                                <div class="ion-text-end" style="width: 100%;">
+                                    <span class="">{{ article.vendeur }} ({{ article.ville }})</span>
+                                </div>
+                            </ion-row>
+                        </ion-grid>
                     </ion-col>
                 </ion-row>
             </ion-col>
