@@ -26,7 +26,7 @@ export class ComptePage {
   }
 
   ngOnInit(): void {
-    this.afs.collection('articles').doc<User>(firebase.auth().currentUser.uid).valueChanges().pipe(
+    this.afs.collection('articles').doc<User>(this.userID).valueChanges().pipe(
       take(1),
       map(user => {
         return user;
@@ -34,6 +34,9 @@ export class ComptePage {
     ).subscribe(user => {
       this.user = user;
     });
+
+    console.log(this.userID);
+    console.log(this.user);
   }
 
   logout() {
