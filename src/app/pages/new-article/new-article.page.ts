@@ -8,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewArticlePage implements OnInit {
 
-  article: Article;
+  nom: string;
+  description: string;
+  categorie: string;
+  prix: number;
 
   constructor() {
-    this.article = new Article();
   }
 
   ngOnInit() {
