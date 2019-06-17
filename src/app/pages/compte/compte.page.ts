@@ -15,28 +15,17 @@ import { take, map } from 'rxjs/operators';
 export class ComptePage {
 
   user;
-  userID = '';
 
   constructor(
     private userService: UserService,
     private afs: AngularFirestore,
     private authService: AuthenticationService,
     private router: Router) {
-      this.userID = firebase.auth().currentUser.uid;
-  }
+
+    }
 
   ngOnInit(): void {
-    this.user = this.afs.collection('users').doc<User>(this.userID).valueChanges().pipe(
-      take(1),
-      map(user => {
-        return user;
-      })
-    ).subscribe(user => {
-      this.user = user;
-    });
-
-    console.log(this.user);
-    console.log(this.userID);
+    this.user = this.userService.currentUser;
   }
 
   logout() {
