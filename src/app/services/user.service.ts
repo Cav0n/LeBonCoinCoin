@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/model/User';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class UserService {
    }
 
    addUser(user: User): Promise<any> {
-     return this.userCollection.add(user);
+     return this.fireStore.collection('users').doc(firebase.auth().currentUser.uid).set(user);
    }
 
    updateUser(user: User): Promise<any> {

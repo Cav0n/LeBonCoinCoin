@@ -26,7 +26,7 @@ export class ComptePage {
   }
 
   ngOnInit(): void {
-    this.afs.collection('articles').doc<User>(this.userID).valueChanges().pipe(
+    this.user = this.afs.collection('users').doc<User>(this.userID).valueChanges().pipe(
       take(1),
       map(user => {
         return user;
@@ -35,8 +35,8 @@ export class ComptePage {
       this.user = user;
     });
 
-    console.log(this.userID);
     console.log(this.user);
+    console.log(this.userID);
   }
 
   logout() {
