@@ -3,11 +3,16 @@
         <ion-title>
             LeBonCoinCoin Accueil
         </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="navigateToNewArticle()">
+                <ion-icon slot="icon-only" name="add" ></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-list lines="none">
-        <ion-item-sliding *ngFor="let article of articles" (click)="navigateToOtherPage(article.id)">
+        <ion-item-sliding *ngFor="let article of articles | async" (click)="navigateToArticleDetail(article.id)">
 
             <ion-item>
                 <app-article [article]='article'></app-article>
