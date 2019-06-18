@@ -18,7 +18,6 @@ export class ComptePage {
 
   constructor(
     private userService: UserService,
-    private afs: AngularFirestore,
     private authService: AuthenticationService,
     private router: Router) {
 

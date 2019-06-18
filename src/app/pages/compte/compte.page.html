@@ -6,7 +6,10 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <p>{{ user.username }}</p>
+    <H1>{{ user.username }}</H1>
+    <p>✉️{{ user.mail }}</p>
+    <p>📍{{ user.ville }}</p>
+    <p>⌛️{{ user.age }}</p>
     <ion-button color="danger" (click)="logout()">
         <ion-icon slot="start" name="exit"></ion-icon>
         Se déconnecter
