@@ -2,6 +2,9 @@ import { Article } from 'src/model/Article';
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserService } from 'src/app/services/user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-article',
@@ -17,6 +20,8 @@ export class NewArticlePage implements OnInit {
 
   constructor(private toastService: ToastService,
               private userService: UserService,
+              private afs: AngularFirestore,
+              private navController: NavController
     ) {
   }
 
@@ -31,15 +36,17 @@ export class NewArticlePage implements OnInit {
       return;
     }
 
-    // todo ajouter l'objet à la collection
-    const article = new Article('unId', this.nom, this.description, this.userService.currentUser, this.categorie, this.prix);
+    const article = new Article('idTemp', this.nom, this.description, this.userService.currentUser, this.categorie, this.prix);
+    this.afs.collection<Article>('articles').add(article);
+
+    this.navController.back();
   }
 
   checkFields(): {passed: boolean, message: string} {
     let passed = true;
     let message = '';
 
-    if (this.prix < 0){
+    if (this.prix < 0) {
       passed = false;
       message = 'le prix doit-être superieur ou égale à 0';
     } else if ( this.nom == null || this.description == null ||
