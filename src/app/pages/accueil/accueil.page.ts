@@ -35,6 +35,5 @@ export class AccueilPage {
 
   navigateToNewArticle(): void {
     this.navController.navigateForward('/new-article');
-    this.navController.pop();
   }
 }

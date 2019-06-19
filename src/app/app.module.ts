@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFirestoreModule,
     AngularFireAuthModule, ],
   providers: [
+    EmailComposer,
     Camera,
     StatusBar,
     SplashScreen,

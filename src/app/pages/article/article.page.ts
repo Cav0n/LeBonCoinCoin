@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from 'src/model/Article';
 import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Component({
   selector: 'app-article',
@@ -17,8 +18,9 @@ export class ArticlePage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private afs: AngularFirestore) {
-    }
+    private afs: AngularFirestore,
+    private emailComposer: EmailComposer) {
+  }
 
  ngOnInit() {
 
@@ -26,7 +28,7 @@ export class ArticlePage implements OnInit {
   this.article = this.afs.collection('articles').doc<Article>(this.articleid).valueChanges().pipe(
     take(1),
     map(article => {
-      article.id = this.articleid
+      article.id = this.articleid;
       return article;
     })
   ).subscribe(article => {
@@ -34,4 +36,18 @@ export class ArticlePage implements OnInit {
   });
  }
 
+ contactSeller() {
+      const email = {
+        to: 'this.article.vendeur',
+        cc: '',
+        bcc: [],
+        attachments: [],
+        subject: this.article.nom +  ' sur LeBonCoinCoin',
+        body: '',
+        isHtml: true
+      };
+
+      this.emailComposer.open(email);
 }
+}
+

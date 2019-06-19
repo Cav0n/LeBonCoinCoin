@@ -43,17 +43,7 @@ export class NewArticlePage implements OnInit {
       return;
     }
 
-    this.user = this.afs.collection('users').doc<User>(this.userID).valueChanges().pipe(
-      take(1),
-      map(user => {
-        user.id = this.userID;
-        return user;
-      })
-    ).subscribe(user => {
-      this.user = user;
-    });
-
-    const article = new Article('idTemp', this.nom, this.description, this.user, this.categorie, this.prix);
+    const article = new Article('idTemp', this.nom, this.description, this.userService.currentUser, this.categorie, this.prix);
     this.afs.collection<Article>('articles').add(article);
 
     this.navController.back();
