@@ -43,8 +43,18 @@ export class NewArticlePage implements OnInit {
       return;
     }
 
-    const article = new Article('idTemp', this.nom, this.description, this.userService.currentUser, this.categorie, this.prix);
-    this.afs.collection<Article>('articles').add(article);
+    const newID = this.afs.createId();
+
+    this.afs.collection('articles').doc(newID).set({
+      id: newID,
+      categorie: this.categorie,
+      date: new Date(),
+      description: this.description,
+      nom: this.nom,
+      prix: this.prix,
+      vendeur: (this.userService.currentUser as User).id,
+      ville: (this.userService.currentUser as User).ville
+    });
 
     this.navController.back();
   }

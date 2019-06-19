@@ -7,13 +7,11 @@ export class Article {
     dateDeMiseEnLigne: Date;
 
     constructor(
-        public id: string,
         public nom: string,
         public description: string,
         public vendeur: User,
         public categorie: string,
         public prix: number) {
-            this.id = id;
             this.nom = nom;
             this.description = description;
             this.categorie = categorie;

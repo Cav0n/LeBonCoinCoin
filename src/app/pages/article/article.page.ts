@@ -28,7 +28,6 @@ export class ArticlePage implements OnInit {
   this.article = this.afs.collection('articles').doc<Article>(this.articleid).valueChanges().pipe(
     take(1),
     map(article => {
-      article.id = this.articleid;
       return article;
     })
   ).subscribe(article => {
