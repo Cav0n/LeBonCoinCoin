@@ -14,7 +14,6 @@ export class AuthenticationService {
   }
 
   async logIn(email: string, password: string) {
-    this.userService.setCurrentUser();
     return (await this.fireAuth.auth.signInWithEmailAndPassword(email, password)).user;
   }
 
