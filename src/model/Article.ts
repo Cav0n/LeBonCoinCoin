@@ -1,16 +1,23 @@
 import { firestore } from 'firebase';
+import { User } from './User';
 
 export class Article {
 
-    constructor(
-        public id?: string,
-        public nom?: string,
-        public description?: string,
-        public vendeur?: string,
-        public categorie?: string,
-        public dateDeMiseEnLigne?: Date,
-        public ville?: string,
-        public prix?: number) {
+    ville: string;
+    dateDeMiseEnLigne: Date;
 
+    constructor(
+        public nom: string,
+        public description: string,
+        public vendeur: User,
+        public categorie: string,
+        public prix: number) {
+            this.nom = nom;
+            this.description = description;
+            this.categorie = categorie;
+            this.vendeur = vendeur;
+            this.prix = prix;
+            this.ville = vendeur.ville;
+            this.dateDeMiseEnLigne = new Date();
     }
 }

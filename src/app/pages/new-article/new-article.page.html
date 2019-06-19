@@ -2,13 +2,20 @@
   <ion-toolbar>
     <ion-title>Nouvelle annonce</ion-title>
       <ion-buttons slot="start" color="primary">
-          <ion-back-button></ion-back-button>
+          <ion-back-button style="padding-left: 5px" text="Annuler" icon="" ></ion-back-button>
       </ion-buttons>
+      <ion-buttons slot="primary" color="primary">
+        <ion-button (click)="submit()">Valider</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-input type="text" placeholder="Titre" [(ngModel)]="article.nom"></ion-input>
-    <ion-input type="text" placeholder="description" [(ngModel)]="article.description"></ion-input>
-    <ion-input type="number" placeholder="Prix" [(ngModel)]="article.prix"></ion-input>
+  <div style="padding: 10px"> 
+    <ion-input type="text" placeholder="Titre" [(ngModel)]="nom"></ion-input>
+    <ion-input type="text" placeholder="catégorie" [(ngModel)]="categorie"></ion-input>
+    <ion-input type="text" placeholder="description" [(ngModel)]="description"></ion-input>
+    <ion-input type="number" placeholder="Prix" [(ngModel)]="prix"></ion-input>
+
+  </div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from 'src/app/services/user.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { User } from 'src/model/User';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -12,9 +12,9 @@ import { take, map } from 'rxjs/operators';
   templateUrl: 'compte.page.html',
   styleUrls: ['compte.page.scss']
 })
-export class ComptePage {
+export class ComptePage implements OnInit {
 
-  user;
+  user: User;
   userID = '';
 
   constructor(
@@ -26,17 +26,7 @@ export class ComptePage {
   }
 
   ngOnInit(): void {
-    this.afs.collection('articles').doc<User>(this.userID).valueChanges().pipe(
-      take(1),
-      map(user => {
-        return user;
-      })
-    ).subscribe(user => {
-      this.user = user;
-    });
-
-    console.log(this.userID);
-    console.log(this.user);
+    this.user = this.userService.currentUser as User;
   }
 
   logout() {
