@@ -4,6 +4,7 @@ import { Article } from 'src/model/Article';
 import { NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-accueil',
@@ -16,10 +17,12 @@ export class AccueilPage {
 
   constructor(
     public navController: NavController,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private user: UserService
     ) {
      this.articles = afs.collection('articles').valueChanges();
-   }
+     console.log(user.currentUser);
+    }
 
   deleteArticle(article: Article) {
     const index = this.articles.indexOf(article);
