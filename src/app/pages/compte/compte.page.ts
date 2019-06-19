@@ -14,7 +14,7 @@ import { take, map } from 'rxjs/operators';
 })
 export class ComptePage implements OnInit {
 
-  user;
+  user: User;
   userID = '';
 
   constructor(
@@ -26,7 +26,7 @@ export class ComptePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.userService.currentUser;
+    this.user = this.userService.currentUser as User;
   }
 
   logout() {
