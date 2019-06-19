@@ -10,33 +10,59 @@ import * as firebase from 'firebase';
 })
 export class UserService {
 
-  public currentUser;
+  private users: Observable<any>;
+  private userCollection: AngularFirestoreCollection<User>;
+  private currentUser: User;
 
   constructor(private fireStore: AngularFirestore) {
-    if (firebase.auth().currentUser != null) {
-    this.currentUser = this.fireStore.collection('users').doc<User>(firebase.auth().currentUser.uid).valueChanges().pipe(
-      take(1),
-      map(user => {
-        return user;
+    this.userCollection = this.fireStore.collection<User>('users');
+    this.users = this.userCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const id = a.payload.doc.id;
+          const data = a.payload.doc.data();
+          return {
+            id,
+            username: data.username
+          };
+        });
       })
-    ).subscribe(user => {
-      this.currentUser = user;
-    });
-  }
+    );
    }
 
+   getUsers(): Observable<User[]> {
+     return this.users;
+   }
+
+   getUser(id: string): Observable<User> {
+     return this.userCollection.doc<User>(id).valueChanges().pipe(
+       take(1),
+       map(user => {
+         user.id = id;
+         return user;
+       })
+     );
+   }
+
+   getCurrentUser() {
+    const id = firebase.auth().currentUser.uid;
+
+    const currentUser = this.fireStore.doc<User>('users/' + id);
+    console.log('id: ' + id + ' user : ' + currentUser);
+    return currentUser;
+   }
 
    addUser(user: User): Promise<any> {
-     return this.fireStore.collection('users').doc(firebase.auth().currentUser.uid).set(user);
+     return this.userCollection.add(user);
    }
 
    updateUser(user: User): Promise<any> {
-     return this.fireStore.collection('users').doc(user.id).update({
+     return this.userCollection.doc(user.id).update({
        username: user.username,
      });
    }
 
    deleteUser(user: User): Promise<any> {
-     return this.fireStore.collection('users').doc(user.id).delete();
+     return this.userCollection.doc(user.id).delete();
    }
 }
