@@ -5,6 +5,9 @@ import { UserService } from 'src/app/services/user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import * as firebase from 'firebase';
+import { User } from 'src/model/User';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-article',
@@ -18,11 +21,15 @@ export class NewArticlePage implements OnInit {
   categorie: string;
   prix: number;
 
+  user;
+  userID;
+
   constructor(private toastService: ToastService,
               private userService: UserService,
               private afs: AngularFirestore,
               private navController: NavController
     ) {
+      this.userID = firebase.auth().currentUser.uid;
   }
 
   ngOnInit() {
@@ -36,7 +43,17 @@ export class NewArticlePage implements OnInit {
       return;
     }
 
-    const article = new Article('idTemp', this.nom, this.description, this.userService.currentUser, this.categorie, this.prix);
+    this.user = this.afs.collection('users').doc<User>(this.userID).valueChanges().pipe(
+      take(1),
+      map(user => {
+        user.id = this.userID;
+        return user;
+      })
+    ).subscribe(user => {
+      this.user = user;
+    });
+
+    const article = new Article('idTemp', this.nom, this.description, this.user, this.categorie, this.prix);
     this.afs.collection<Article>('articles').add(article);
 
     this.navController.back();

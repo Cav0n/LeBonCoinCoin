@@ -26,7 +26,6 @@ export class ComptePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.userService.getCurrentUser();
     this.user = this.afs.collection('users').doc<User>(this.userID).valueChanges().pipe(
       take(1),
       map(user => {
