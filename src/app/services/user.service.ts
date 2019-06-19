@@ -10,11 +10,23 @@ import * as firebase from 'firebase';
 })
 export class UserService {
 
+  private userID;
   private users: Observable<any>;
   private userCollection: AngularFirestoreCollection<User>;
-  private currentUser: User;
+  public currentUser;
 
   constructor(private fireStore: AngularFirestore) {
+    this.userID = firebase.auth().currentUser.uid;
+    this.currentUser = this.fireStore.collection('users').doc<User>(this.userID).valueChanges().pipe(
+      take(1),
+      map(user => {
+        user.id = this.userID;
+        return user;
+      })
+    ).subscribe(user => {
+      this.currentUser = user;
+    });
+
     this.userCollection = this.fireStore.collection<User>('users');
     this.users = this.userCollection.snapshotChanges().pipe(
       map(actions => {
