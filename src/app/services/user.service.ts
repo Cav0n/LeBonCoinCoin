@@ -13,6 +13,13 @@ export class UserService {
   public currentUser;
 
   constructor(private fireStore: AngularFirestore) {
+   }
+
+   addUser(user: User): Promise<any> {
+     return this.fireStore.collection('users').doc(firebase.auth().currentUser.uid).set(user);
+   }
+
+   setCurrentUser() {
     this.currentUser = this.fireStore.collection('users').doc<User>(firebase.auth().currentUser.uid).valueChanges().pipe(
       take(1),
       map(user => {
@@ -21,10 +28,6 @@ export class UserService {
     ).subscribe(user => {
       this.currentUser = user;
     });
-   }
-
-   addUser(user: User): Promise<any> {
-     return this.fireStore.collection('users').doc(firebase.auth().currentUser.uid).set(user);
    }
 
    updateUser(user: User): Promise<any> {
