@@ -27,6 +27,9 @@ export class ComptePage implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.currentUser as User;
+    if(this.user.favoris != null){
+      console.log(this.user.favoris.length);
+    }
   }
 
   logout() {

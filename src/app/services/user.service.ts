@@ -21,14 +21,11 @@ export class UserService {
     this.currentUser = this.userCollection.doc<User>(this.userID).valueChanges().pipe(
       take(1),
       map(user => {
-        user.id = this.userID;
         return user;
       })
     ).subscribe(user => {
       this.currentUser = user;
     });
-
-    
    }
 
    addUser(user: User): Promise<any> {
