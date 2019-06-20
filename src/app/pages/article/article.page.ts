@@ -40,7 +40,7 @@ export class ArticlePage implements OnInit {
 
  contactSeller() {
       const email = {
-        to: 'this.article.vendeur',
+        to: this.vendeur.mail,
         cc: '',
         bcc: [],
         attachments: [],
