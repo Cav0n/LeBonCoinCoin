@@ -1,29 +1,24 @@
-import { Component } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import * as firebase from 'firebase';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-favoris',
   templateUrl: 'favoris.page.html',
   styleUrls: ['favoris.page.scss']
 })
-export class FavorisPage {
-  currentImage: any;
+export class FavorisPage implements OnInit {
 
-  constructor(private camera: Camera) { }
+  userID: string;
+  favoris: Array<string>;
 
-  takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
+  constructor(private userService: UserService) { 
+    this.userID = firebase.auth().currentUser.uid;
+  }
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.currentImage = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-     // Handle error
-     console.log('Camera issue:' + err);
-    });
+  ngOnInit(): void {
+    const user = this.userService.currentUser as User;
+    this.favoris = user.favoris;
   }
 }

@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-accueil',
@@ -23,9 +24,9 @@ export class AccueilPage {
      this.articles = afs.collection('articles').valueChanges();
     }
 
-  deleteArticle(article: Article) {
-    const index = this.articles.indexOf(article);
-    if (index > -1) { this.articles.splice(index, 1); }
+  favoriteArticle(article: Article) {
+    const user = this.user.currentUser as User;
+    user.favoris.push(article.nom);
    }
 
   navigateToArticleDetail(articleId: string): void {
