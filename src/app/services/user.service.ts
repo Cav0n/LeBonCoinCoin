@@ -11,13 +11,14 @@ import * as firebase from 'firebase';
 export class UserService {
 
   private userID;
-  private users: Observable<any>;
   private userCollection: AngularFirestoreCollection<User>;
   public currentUser;
 
   constructor(private fireStore: AngularFirestore) {
     this.userID = firebase.auth().currentUser.uid;
-    this.currentUser = this.fireStore.collection('users').doc<User>(this.userID).valueChanges().pipe(
+    this.userCollection = this.fireStore.collection<User>('users');
+
+    this.currentUser = this.userCollection.doc<User>(this.userID).valueChanges().pipe(
       take(1),
       map(user => {
         user.id = this.userID;
@@ -27,41 +28,7 @@ export class UserService {
       this.currentUser = user;
     });
 
-    this.userCollection = this.fireStore.collection<User>('users');
-    this.users = this.userCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const id = a.payload.doc.id;
-          const data = a.payload.doc.data();
-          return {
-            id,
-            username: data.username
-          };
-        });
-      })
-    );
-   }
-
-   getUsers(): Observable<User[]> {
-     return this.users;
-   }
-
-   getUser(id: string): Observable<User> {
-     return this.userCollection.doc<User>(id).valueChanges().pipe(
-       take(1),
-       map(user => {
-         user.id = id;
-         return user;
-       })
-     );
-   }
-
-   getCurrentUser() {
-    const id = firebase.auth().currentUser.uid;
-
-    const currentUser = this.fireStore.doc<User>('users/' + id);
-    console.log('id: ' + id + ' user : ' + currentUser);
-    return currentUser;
+    
    }
 
    addUser(user: User): Promise<any> {

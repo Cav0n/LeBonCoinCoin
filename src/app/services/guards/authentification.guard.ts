@@ -14,11 +14,9 @@ export class AuthenticationGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     if (this.authService.isAuthenticated()) {
-      console.log('User authenticated');
       return true;
     }
 
-    console.log('User not authenticated: redirection to login page');
     this.router.navigateByUrl('login');
     return false;
   }

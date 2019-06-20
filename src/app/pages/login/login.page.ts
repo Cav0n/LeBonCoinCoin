@@ -28,7 +28,6 @@ export class LoginPage implements OnInit {
   }
 
   redirectToRegisterPage() {
-    console.log('Redirection vers la page d\'inscription');
     this.router.navigateByUrl('register');
   }
 

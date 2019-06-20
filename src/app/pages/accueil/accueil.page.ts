@@ -21,7 +21,6 @@ export class AccueilPage {
     private user: UserService
     ) {
      this.articles = afs.collection('articles').valueChanges();
-     console.log(user.getCurrentUser());
     }
 
   deleteArticle(article: Article) {
