@@ -1,0 +1,19 @@
+import { ArticleComponent } from '../../components/article/article.component';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AccueilPage } from './accueil.page';
+
+@NgModule({
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild([{ path: '', component: AccueilPage }])
+  ],
+  declarations: [AccueilPage, ArticleComponent],
+  entryComponents: [ArticleComponent]
+})
+export class AccueilPageModule {}

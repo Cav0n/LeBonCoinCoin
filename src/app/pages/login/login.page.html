@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            Connexion
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div padding>
+          <ion-input type="email" placeholder="Adresse email" [(ngModel)]="email"></ion-input>
+          <ion-input type="password" placeholder="Mot de passe" [(ngModel)]="password"></ion-input>
+        </div>
+
+        <div padding>
+          <ion-button (click)="logIn()" expand="block">Se connecter</ion-button>
+          <ion-button (click)="redirectToRegisterPage()" expand="block">S'enregistrer</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            LeBonCoinCoin Favoris
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list lines="none">
+            <ion-item *ngFor="let article of favoris">
+                <ion-card>
+                    <p>{{ article }}</p>
+                </ion-card>
+            </ion-item>
+    </ion-list>
+</ion-content>

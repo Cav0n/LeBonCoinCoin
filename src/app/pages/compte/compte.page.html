@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            LeBonCoinCoin Compte
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <H1>{{ user.username }}</H1>
+    <p>✉️{{ user.mail }}</p>
+    <p>📍{{ user.ville }}</p>
+    <p>⌛️{{ user.age }}</p>
+    <ion-button color="danger" (click)="logout()">
+        <ion-icon slot="start" name="exit"></ion-icon>
+        Se déconnecter
+    </ion-button>
+</ion-content>
