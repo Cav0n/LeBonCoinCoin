@@ -5,6 +5,7 @@ import { Article } from 'src/model/Article';
 import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-article',
@@ -14,25 +15,27 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class ArticlePage implements OnInit {
 
   article;
+  vendeur;
   articleid;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private afs: AngularFirestore,
     private emailComposer: EmailComposer) {
+      this.articleid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.article = this.afs.collection('articles').doc<Article>(this.articleid).valueChanges().pipe(
+        take(1),
+        map(article => {
+          return article;
+        })
+      ).subscribe(article => {
+        this.article = article;
+        this.vendeur = this.afs.collection('users').doc<User>(this.article.vendeur).valueChanges().pipe(take(1), map(user => { return user })).subscribe(vendeur => { this.vendeur = vendeur});
+      });
   }
 
  ngOnInit() {
 
-  this.articleid = this.activatedRoute.snapshot.paramMap.get('id');
-  this.article = this.afs.collection('articles').doc<Article>(this.articleid).valueChanges().pipe(
-    take(1),
-    map(article => {
-      return article;
-    })
-  ).subscribe(article => {
-    this.article = article;
-  });
  }
 
  contactSeller() {
