@@ -12,5 +12,6 @@
   <p>{{ article.categorie }}</p>
   <p>{{ article.prix }} €</p>
   <p>{{ vendeur.username }} - {{ article.ville }}</p>
-  <ion-button (click)="contactSeller()" *ngIf="vendeur.mail">Contacter par email</ion-button>
+  <ion-button (click)="contactSeller()" [hidden]="vendeur.id == currentUser.id">Contacter par email</ion-button>
+  <ion-button  (click)="deleteArticle()" [hidden]="vendeur.id != currentUser.id" >Supprimer</ion-button>
 </ion-content>

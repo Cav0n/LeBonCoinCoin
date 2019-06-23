@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { User } from 'src/model/User';
+import { UserService } from 'src/app/services/user.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-article',
@@ -16,12 +18,15 @@ export class ArticlePage implements OnInit {
 
   article;
   vendeur;
+  currentUser;
   articleid;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private afs: AngularFirestore,
-    private emailComposer: EmailComposer) {
+    private emailComposer: EmailComposer,
+    private userService: UserService,
+    private navController: NavController) {
       this.articleid = this.activatedRoute.snapshot.paramMap.get('id');
       this.article = this.afs.collection('articles').doc<Article>(this.articleid).valueChanges().pipe(
         take(1),
@@ -31,11 +36,11 @@ export class ArticlePage implements OnInit {
       ).subscribe(article => {
         this.article = article;
         this.vendeur = this.afs.collection('users').doc<User>(this.article.vendeur).valueChanges().pipe(take(1), map(user => { return user })).subscribe(vendeur => { this.vendeur = vendeur});
+        this.currentUser = this.userService.currentUser;
       });
   }
 
  ngOnInit() {
-
  }
 
  contactSeller() {
@@ -50,6 +55,13 @@ export class ArticlePage implements OnInit {
       };
 
       this.emailComposer.open(email);
-}
+  }
+
+  deleteArticle(){
+    if(this.vendeur.id == this.currentUser.id){
+      this.afs.collection('articles').doc<Article>(this.articleid).delete();
+      this.navController.back();
+    }
+  }
 }
 
