@@ -6,12 +6,24 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <H1>{{ user.username }}</H1>
-    <p>✉️{{ user.mail }}</p>
-    <p>📍{{ user.ville }}</p>
-    <p>⌛️{{ user.age }}</p>
-    <ion-button color="danger" (click)="logout()">
-        <ion-icon slot="start" name="exit"></ion-icon>
-        Se déconnecter
-    </ion-button>
+    <ion-grid>
+        <ion-row justify-content-center>
+            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+                <div padding>
+                    <H1>{{ user.username }}</H1>
+                </div>
+                <div padding>
+                        <p><ion-icon name="mail"></ion-icon> {{ user.mail }}</p>
+                        <p><ion-icon name="map"></ion-icon> {{ user.ville }}</p>
+                        <p><ion-icon name="calendar"></ion-icon> {{ user.age }}</p>
+                </div>
+                <div padding>
+                        <ion-button color="danger" (click)="logout()">
+                                <ion-icon slot="start" name="exit"></ion-icon>
+                                Se déconnecter
+                            </ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
