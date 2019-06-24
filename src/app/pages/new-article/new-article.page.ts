@@ -68,10 +68,14 @@ export class NewArticlePage implements OnInit {
     if (this.prix < 0) {
       passed = false;
       message = 'le prix doit-être superieur ou égale à 0';
-    } else if ( this.nom == null || this.description == null ||
+    } else if ( this.nom == null ||
                   this.categorie == null || this.prix == null) {
       passed = false;
       message = 'Tout les champs doivent être remplis';
+      console.log('nom = ' + this.nom);
+      console.log('description = ' + this.description);
+      console.log('prix = ' + this.prix);
+      console.log('categorie = ' + this.categorie);
     }
     return {passed, message};
   }
