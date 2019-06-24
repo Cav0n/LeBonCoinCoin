@@ -4,6 +4,7 @@ import { User } from './User';
 export class Article {
 
     dateDeMiseEnLigne: Date;
+    id?: string;
 
     constructor(
         public nom: string,
