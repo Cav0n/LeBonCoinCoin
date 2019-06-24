@@ -8,6 +8,7 @@ import { NavController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { User } from 'src/model/User';
 import { take, map } from 'rxjs/operators';
+import { Categorie, enumSelector } from 'src/model/Categorie';
 
 @Component({
   selector: 'app-new-article',
@@ -15,11 +16,12 @@ import { take, map } from 'rxjs/operators';
   styleUrls: ['./new-article.page.scss'],
 })
 export class NewArticlePage implements OnInit {
-
   nom: string;
   description: string;
   categorie: string;
   prix: number;
+
+  catEnum = enumSelector(Categorie);
 
   user;
   userID;

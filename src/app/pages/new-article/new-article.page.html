@@ -13,7 +13,9 @@
 <ion-content>
   <div style="padding: 10px"> 
     <ion-input type="text" placeholder="Titre" [(ngModel)]="nom"></ion-input>
-    <ion-input type="text" placeholder="catégorie" [(ngModel)]="categorie"></ion-input>
+    <ion-select placeholder="Categorie" interface="popover" [(ngModel)]="categorie">
+      <ion-select-option *ngFor="let cat of catEnum" >{{cat.value}}</ion-select-option>
+    </ion-select>
     <ion-input type="text" placeholder="description" [(ngModel)]="description"></ion-input>
     <ion-input type="number" placeholder="Prix" [(ngModel)]="prix"></ion-input>
 

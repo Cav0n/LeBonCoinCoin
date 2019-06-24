@@ -1,4 +1,4 @@
-enum Categorie {
+export enum Categorie {
     Jardin = 'Jardin et piscine',
     Informatique = 'Informatique',
     Telephone = 'Téléphone et objet connecté',
@@ -15,3 +15,8 @@ enum Categorie {
     Jeux = 'Jeux & jouets',
     JeuxVideo = 'Jeux vidéo & consoles'
 }
+
+export function enumSelector(definition: any) {
+    return Object.keys(definition)
+      .map(key => ({ value: definition[key], title: key }));
+  }
