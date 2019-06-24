@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{ article.nom }}</ion-title>
-      <ion-buttons slot="start" color="primary">
-          <ion-back-button></ion-back-button>
-      </ion-buttons>
+    <ion-buttons slot="start" color="primary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +13,5 @@
   <p>{{ article.prix }} €</p>
   <p>{{ vendeur.username }} - {{ article.ville }}</p>
   <ion-button (click)="contactSeller()" [hidden]="vendeur.id == currentUser.id">Contacter par email</ion-button>
-  <ion-button  (click)="deleteArticle()" [hidden]="vendeur.id != currentUser.id" >Supprimer</ion-button>
+  <ion-button (click)="deleteArticle()" [hidden]="vendeur.id != currentUser.id">Supprimer</ion-button>
 </ion-content>

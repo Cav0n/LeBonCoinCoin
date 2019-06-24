@@ -7,10 +7,18 @@
 </ion-header>
 <ion-content>
     <ion-list lines="none">
-            <ion-item *ngFor="let article of favoris">
-                <ion-card>
-                    <p>{{ article }}</p>
-                </ion-card>
+        <ion-item-sliding *ngFor="let article of favoris | async" >
+
+            <ion-item (click)="navigateToArticleDetail(article.id)">
+                <app-article [article]='article'></app-article>
             </ion-item>
+
+            <ion-item-options>
+                    <button ion-button icon-only (click)="favoriteArticle(article)" style="background: white;" danger>
+                        <ion-icon name="heart" style="zoom:3.0; color: rgb(255, 0, 221);"></ion-icon>
+                    </button>
+            </ion-item-options>
+
+        </ion-item-sliding>
     </ion-list>
 </ion-content>
