@@ -24,9 +24,11 @@ export class AccueilPage {
      this.articles = afs.collection('articles').valueChanges();
     }
 
-  favoriteArticle(article: Article) {
+  favoriteArticle(articleID: string) {
     const user = this.user.currentUser as User;
-    user.favoris.push(article.nom);
+    user.favoris.push(articleID);
+    console.log(articleID);
+    console.log(user.favoris);
    }
 
   navigateToArticleDetail(articleId: string): void {
