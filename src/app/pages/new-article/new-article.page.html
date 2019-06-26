@@ -44,5 +44,13 @@
           </ion-item>
       </ion-list>
 
+      <img [src]="currentImage" *ngIf="currentImage">
+
+      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button (click)="pickImage()">
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
   </div>
 </ion-content>
