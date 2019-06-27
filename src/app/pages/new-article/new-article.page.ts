@@ -24,6 +24,7 @@ export class NewArticlePage implements OnInit {
   prix: number;
   currentImage: any;
   imageName;
+  uploadPercent;
 
   catEnum = enumSelector(Categorie);
 
@@ -38,6 +39,7 @@ export class NewArticlePage implements OnInit {
               private file: File
     ) {
       this.userID = firebase.auth().currentUser.uid;
+      this.uploadPercent = 0;
   }
 
   ngOnInit() {
@@ -46,27 +48,33 @@ export class NewArticlePage implements OnInit {
   submit() {
     const verif = this.checkFields();
 
+    console.log(verif.passed)
+
     if (!verif.passed) {
+
       this.toastService.presentToast(verif.message);
       return;
     }
 
-    const newID = this.afs.createId();
+    console.log(this.currentImage);
     if(this.currentImage != null){
-      this.uploadToFirebase(this.currentImage);
-
-      this.afs.collection('articles').doc(newID).set({
-        
-        id: newID,
-        categorie: this.categorie,
-        date: new Date(),
-        description: this.description,
-        nom: this.nom,
-        prix: this.prix,
-        vendeur: (this.userService.currentUser as User).id,
-        ville: (this.userService.currentUser as User).ville,
-        image: (this.currentImage.name)
-      });
+      try {
+        const newID = this.afs.createId();
+        this.afs.collection('articles').doc(newID).set({       
+          id: newID,
+          categorie: this.categorie,
+          date: new Date(),
+          description: this.description,
+          nom: this.nom,
+          prix: this.prix,
+          vendeur: (this.userService.currentUser as User).id,
+          ville: (this.userService.currentUser as User).ville,
+          image: (this.currentImage)
+        });
+      }catch (e) {
+        console.log(e.message);
+        alert("File Upload Error " + e.message);
+      }
 
       this.navController.back();
     }
@@ -83,7 +91,9 @@ export class NewArticlePage implements OnInit {
     try {
       let cameraInfo = await this.camera.getPicture(options);
       let blobInfo = await this.makeFileIntoBlob(cameraInfo);
-      this.imageName = (blobInfo as any).fileName;
+      console.log("L'image avant : "+ this.currentImage);
+      this.currentImage = (blobInfo as any).fileName;
+      console.log("L'image après : " + this.currentImage);
       let uploadInfo: any = await this.uploadToFirebase(blobInfo);
 
       alert("File Upload Success " + uploadInfo.fileName);
@@ -146,14 +156,14 @@ export class NewArticlePage implements OnInit {
           console.log(
             "snapshot progess " +
               (_snapshot.bytesTransferred / _snapshot.totalBytes) * 100
-          );
+          ); this.uploadPercent =  (_snapshot.bytesTransferred / _snapshot.totalBytes);
         },
         _error => {
           console.log(_error);
           reject(_error);
         },
         () => {
-          // completion...
+          console.log("OUI");
           resolve(uploadTask.snapshot);
         }
       );
