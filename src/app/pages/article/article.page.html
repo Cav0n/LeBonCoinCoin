@@ -10,10 +10,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h1>{{ article.description }}</h1>
-  <p>{{ article.categorie }}</p>
-  <p>{{ article.prix }} €</p>
-  <p>{{ vendeur.username }} - {{ article.ville }}</p>
-  <ion-button (click)="contactSeller()" [hidden]="vendeur.id == currentUser.id">Contacter par email</ion-button>
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <h1>{{ article.nom }}</h1>
+          <p>{{ article.description }}</p>
+          <p>{{ article.categorie }}</p>
+          <p>{{ article.prix }} €</p>
+          <p>{{ vendeur.username }} - {{ article.ville }}</p>
+          <ion-button (click)="contactSeller()" [hidden]="vendeur.id == currentUser.id">Contacter par email</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>
