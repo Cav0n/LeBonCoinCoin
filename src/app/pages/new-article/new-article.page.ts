@@ -24,7 +24,6 @@ export class NewArticlePage implements OnInit {
   prix: number;
   currentImage: any;
   imageName;
-  uploadPercent;
 
   catEnum = enumSelector(Categorie);
 
@@ -39,7 +38,6 @@ export class NewArticlePage implements OnInit {
               private file: File
     ) {
       this.userID = firebase.auth().currentUser.uid;
-      this.uploadPercent = 0;
   }
 
   ngOnInit() {
@@ -48,129 +46,28 @@ export class NewArticlePage implements OnInit {
   submit() {
     const verif = this.checkFields();
 
-    console.log(verif.passed)
-
     if (!verif.passed) {
 
       this.toastService.presentToast(verif.message);
       return;
     }
 
-    console.log(this.currentImage);
-    if(this.currentImage != null){
-      try {
-        const newID = this.afs.createId();
-        this.afs.collection('articles').doc(newID).set({       
-          id: newID,
-          categorie: this.categorie,
-          date: new Date(),
-          description: this.description,
-          nom: this.nom,
-          prix: this.prix,
-          vendeur: (this.userService.currentUser as User).id,
-          ville: (this.userService.currentUser as User).ville,
-          image: (this.currentImage)
-        });
-      }catch (e) {
-        console.log(e.message);
-        alert("File Upload Error " + e.message);
-      }
-
-      this.navController.back();
-    }
-  }
-
-  async pickImage() {
-    const options: CameraOptions = {
-      quality: 80,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
-    try {
-      let cameraInfo = await this.camera.getPicture(options);
-      let blobInfo = await this.makeFileIntoBlob(cameraInfo);
-      console.log("L'image avant : "+ this.currentImage);
-      this.currentImage = (blobInfo as any).fileName;
-      console.log("L'image après : " + this.currentImage);
-      let uploadInfo: any = await this.uploadToFirebase(blobInfo);
-
-      alert("File Upload Success " + uploadInfo.fileName);
-    } catch (e) {
-      console.log(e.message);
-      alert("File Upload Error " + e.message);
-    }
-  }
-
-  // FILE STUFF
-  makeFileIntoBlob(_imagePath) {
-    // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
-    return new Promise((resolve, reject) => {
-      let fileName = "";
-      this.file
-        .resolveLocalFilesystemUrl(_imagePath)
-        .then(fileEntry => {
-          let { name, nativeURL } = fileEntry;
-
-          // get the path..
-          let path = nativeURL.substring(0, nativeURL.lastIndexOf("/"));
-          console.log("path", path);
-          console.log("fileName", name);
-
-          fileName = name;
-
-          // we are provided the name, so now read the file into
-          // a buffer
-          return this.file.readAsArrayBuffer(path, name);
-        })
-        .then(buffer => {
-          // get the buffer and make a blob to be saved
-          let imgBlob = new Blob([buffer], {
-            type: "image/jpeg"
-          });
-          console.log(imgBlob.type, imgBlob.size);
-          resolve({
-            fileName,
-            imgBlob
-          });
-        })
-        .catch(e => reject(e));
+    const newID = this.afs.createId();
+    this.afs.collection('articles').doc(newID).set({
+      id: newID,
+      categorie: this.categorie,
+      date: new Date(),
+      description: this.description,
+      nom: this.nom,
+      prix: this.prix,
+      vendeur: (this.userService.currentUser as User).id,
+      ville: (this.userService.currentUser as User).ville,
     });
-  }
 
-  /**
-   *
-   * @param _imageBlobInfo
-   */
-  uploadToFirebase(_imageBlobInfo) {
-    console.log("uploadToFirebase");
-    return new Promise((resolve, reject) => {
-      let fileRef = firebase.storage().ref("images/" + _imageBlobInfo.fileName);
+    this.navController.back();
+    }
 
-      let uploadTask = fileRef.put(_imageBlobInfo.imgBlob);
-
-      uploadTask.on(
-        "state_changed",
-        (_snapshot: any) => {
-          console.log(
-            "snapshot progess " +
-              (_snapshot.bytesTransferred / _snapshot.totalBytes) * 100
-          ); this.uploadPercent =  (_snapshot.bytesTransferred / _snapshot.totalBytes);
-        },
-        _error => {
-          console.log(_error);
-          reject(_error);
-        },
-        () => {
-          console.log("OUI");
-          resolve(uploadTask.snapshot);
-        }
-      );
-    });
-  }
-
-  checkFields(): {passed: boolean, message: string} {
+checkFields(): {passed: boolean, message: string} {
     let passed = true;
     let message = '';
 
@@ -188,5 +85,4 @@ export class NewArticlePage implements OnInit {
     }
     return {passed, message};
   }
-
 }

@@ -44,15 +44,5 @@
           </ion-item>
       </ion-list>
 
-      <ion-progress-bar value='{{ uploadPercent }}'></ion-progress-bar>
-
-      <img [src]="currentImage" *ngIf="currentImage">
-
-      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button (click)="pickImage()">
-          <ion-icon name="camera"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-
   </div>
 </ion-content>
