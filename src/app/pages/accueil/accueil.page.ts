@@ -28,9 +28,6 @@ async loadArticles() {
     this.articles = this.afs.collection('articles').valueChanges();
 }
 
-delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
   favoriteArticle(articleID: string) {
     const user = this.user.currentUser as User;
     user.favoris.push(articleID);
