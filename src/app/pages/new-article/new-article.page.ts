@@ -8,6 +8,9 @@ import { NavController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { User } from 'src/model/User';
 import { take, map } from 'rxjs/operators';
+import { Categorie, enumSelector } from 'src/model/Categorie';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-new-article',
@@ -15,11 +18,14 @@ import { take, map } from 'rxjs/operators';
   styleUrls: ['./new-article.page.scss'],
 })
 export class NewArticlePage implements OnInit {
-
   nom: string;
   description: string;
   categorie: string;
   prix: number;
+  currentImage: any;
+  imageName;
+
+  catEnum = enumSelector(Categorie);
 
   user;
   userID;
@@ -27,7 +33,9 @@ export class NewArticlePage implements OnInit {
   constructor(private toastService: ToastService,
               private userService: UserService,
               private afs: AngularFirestore,
-              private navController: NavController
+              private navController: NavController,
+              private camera: Camera,
+              private file: File
     ) {
       this.userID = firebase.auth().currentUser.uid;
   }
@@ -39,12 +47,12 @@ export class NewArticlePage implements OnInit {
     const verif = this.checkFields();
 
     if (!verif.passed) {
+
       this.toastService.presentToast(verif.message);
       return;
     }
 
     const newID = this.afs.createId();
-
     this.afs.collection('articles').doc(newID).set({
       id: newID,
       categorie: this.categorie,
@@ -53,25 +61,28 @@ export class NewArticlePage implements OnInit {
       nom: this.nom,
       prix: this.prix,
       vendeur: (this.userService.currentUser as User).id,
-      ville: (this.userService.currentUser as User).ville
+      ville: (this.userService.currentUser as User).ville,
     });
 
     this.navController.back();
-  }
+    }
 
-  checkFields(): {passed: boolean, message: string} {
+checkFields(): {passed: boolean, message: string} {
     let passed = true;
     let message = '';
 
     if (this.prix < 0) {
       passed = false;
       message = 'le prix doit-être superieur ou égale à 0';
-    } else if ( this.nom == null || this.description == null ||
+    } else if ( this.nom == null ||
                   this.categorie == null || this.prix == null) {
       passed = false;
       message = 'Tout les champs doivent être remplis';
+      console.log('nom = ' + this.nom);
+      console.log('description = ' + this.description);
+      console.log('prix = ' + this.prix);
+      console.log('categorie = ' + this.categorie);
     }
     return {passed, message};
   }
-
 }

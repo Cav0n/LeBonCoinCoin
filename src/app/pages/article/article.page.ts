@@ -35,7 +35,8 @@ export class ArticlePage implements OnInit {
         })
       ).subscribe(article => {
         this.article = article;
-        this.vendeur = this.afs.collection('users').doc<User>(this.article.vendeur).valueChanges().pipe(take(1), map(user => { return user })).subscribe(vendeur => { this.vendeur = vendeur});
+        this.vendeur = this.afs.collection('users').doc<User>(this.article.vendeur).valueChanges().pipe(take(1),
+            map(user => user )).subscribe(vendeur => { this.vendeur = vendeur; });
         this.currentUser = this.userService.currentUser;
       });
   }
@@ -57,8 +58,8 @@ export class ArticlePage implements OnInit {
       this.emailComposer.open(email);
   }
 
-  deleteArticle(){
-    if(this.vendeur.id == this.currentUser.id){
+  deleteArticle() {
+    if (this.vendeur.id === this.currentUser.id) {
       this.afs.collection('articles').doc<Article>(this.articleid).delete();
       this.navController.back();
     }

@@ -4,14 +4,16 @@
       <ion-buttons slot="start" color="primary">
           <ion-back-button></ion-back-button>
       </ion-buttons>
+      <ion-buttons slot="primary" color="primary">
+        <ion-button (click)="deleteArticle()"  [hidden]="vendeur.id != currentUser.id"><ion-icon name="trash"></ion-icon></ion-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <h1>{{ article.description }}</h1>
   <p>{{ article.categorie }}</p>
   <p>{{ article.prix }} €</p>
   <p>{{ vendeur.username }} - {{ article.ville }}</p>
   <ion-button (click)="contactSeller()" [hidden]="vendeur.id == currentUser.id">Contacter par email</ion-button>
-  <ion-button  (click)="deleteArticle()" [hidden]="vendeur.id != currentUser.id" >Supprimer</ion-button>
 </ion-content>

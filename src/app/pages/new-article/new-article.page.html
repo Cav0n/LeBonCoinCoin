@@ -11,11 +11,38 @@
 </ion-header>
 
 <ion-content>
-  <div style="padding: 10px"> 
-    <ion-input type="text" placeholder="Titre" [(ngModel)]="nom"></ion-input>
-    <ion-input type="text" placeholder="catégorie" [(ngModel)]="categorie"></ion-input>
+  <div> 
+    <!-- <ion-input type="text" placeholder="Titre" [(ngModel)]="nom"></ion-input>
+    <ion-select placeholder="Categorie" interface="popover" [(ngModel)]="categorie">
+      <ion-select-option *ngFor="let cat of catEnum" >{{cat.value}}</ion-select-option>
+    </ion-select>
     <ion-input type="text" placeholder="description" [(ngModel)]="description"></ion-input>
-    <ion-input type="number" placeholder="Prix" [(ngModel)]="prix"></ion-input>
+    <ion-input type="number" placeholder="Prix" [(ngModel)]="prix"></ion-input> -->
+
+      <ion-list lines="full" class="ion-no-margin ion-no-padding ios list-ios list-lines-full list-ios-lines-full hydrated">
+        <ion-item class="item ios in-list ion-focusable item-label item-label-stacked hydrated">
+          <ion-label position="stacked" class="sc-ion-label-ios-h sc-ion-label-ios-s ios label-stacked hydrated" id="ion-input-6-lbl">Titre <ion-text color="danger" class="ion-color ion-color-danger ios hydrated">*</ion-text></ion-label>
+          <ion-input required="" type="text" [(ngModel)]="nom" class="sc-ion-input-ios-h sc-ion-input-ios-s ios hydrated"></ion-input>
+        </ion-item>  
+
+        <ion-item class="item ios in-list ion-focusable item-label item-label-stacked item-interactive item-input hydrated">
+            <ion-label position="stacked" class="sc-ion-label-ios-h sc-ion-label-ios-s ios label-stacked hydrated" id="ion-input-6-lbl">Catégorie <ion-text color="danger" class="ion-color ion-color-danger ios hydrated">*</ion-text></ion-label>
+          
+            <ion-select [(ngModel)]="categorie" interface="popover" role="combobox" aria-expanded="false" aria-haspopup="dialog" aria-labelledby="ion-sel-0-lbl" class="ios in-item hydrated">
+            <ion-select-option *ngFor="let cat of catEnum" class="ios hydrated">{{cat.value}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="item ios in-list ion-focusable item-label item-label-stacked item-interactive item-textarea item-input hydrated">
+          <ion-label position="stacked" class="sc-ion-label-ios-h sc-ion-label-ios-s ios label-stacked hydrated" id="ion-input-0-lbl" >Description</ion-label>
+          <ion-textarea [(ngModel)]="description" class="sc-ion-textarea-ios-h sc-ion-textarea-ios-s ios hydrated"></ion-textarea>
+        </ion-item>
+
+        <ion-item class="item ios in-list ion-focusable item-label item-label-stacked item-interactive item-input hydrated">
+            <ion-label position="stacked" class="sc-ion-label-ios-h sc-ion-label-ios-s ios label-stacked hydrated" id="ion-input-6-lbl">Prix <ion-text color="danger" class="ion-color ion-color-danger ios hydrated">*</ion-text></ion-label>
+            <ion-input required="" type="number" [(ngModel)]="prix" class="sc-ion-input-ios-h sc-ion-input-ios-s ios hydrated"></ion-input>
+          </ion-item>
+      </ion-list>
 
   </div>
 </ion-content>

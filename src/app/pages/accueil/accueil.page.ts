@@ -21,12 +21,18 @@ export class AccueilPage {
     private afs: AngularFirestore,
     private user: UserService
     ) {
-     this.articles = afs.collection('articles').valueChanges();
+      this.loadArticles();
     }
 
-  favoriteArticle(article: Article) {
+async loadArticles() {
+    this.articles = this.afs.collection('articles').valueChanges();
+}
+
+  favoriteArticle(articleID: string) {
     const user = this.user.currentUser as User;
-    user.favoris.push(article.nom);
+    user.favoris.push(articleID);
+    console.log(articleID);
+    console.log(user.favoris);
    }
 
   navigateToArticleDetail(articleId: string): void {

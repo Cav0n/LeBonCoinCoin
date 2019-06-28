@@ -7,10 +7,8 @@
 </ion-header>
 <ion-content>
     <ion-list lines="none">
-            <ion-item *ngFor="let article of favoris">
-                <ion-card>
-                    <p>{{ article }}</p>
-                </ion-card>
-            </ion-item>
+        <ion-item-sliding *ngFor="let article of favoris" >
+            <p>{{ article }}</p>
+        </ion-item-sliding>
     </ion-list>
 </ion-content>
